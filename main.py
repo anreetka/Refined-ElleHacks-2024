@@ -1,27 +1,24 @@
 from flask import Flask, render_template, jsonify, request
 from dotenv import load_dotenv
+from coordinates import extractDataFromDatabase
 import requests
 import os
-import csv
-
-# Import the function to collect coordinates
-from coordinates import collect_coordinates_bus_shelter
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__)\
 
 @app.route('/')
 def map_markers():
     # Collect coordinates from the bus shelter dataset
-    coordinates = collect_coordinates_bus_shelter('staticFiles/Transit-Shelter-Data.csv')
+    coordinates = extractDataFromDatabase()
     return render_template('map.html', coordinates=coordinates, API_KEY=os.environ.get('GOOGLE_MAPS_API_KEY'))
 
 @app.route('/calculate_route', methods=['POST'])
 def calculate_route():
     data = request.json
-    origin = data.get('origin', '43.851174,-79.3168389')  #( Unionville Go) Extract origin coordinates from request data
-    destination = data.get('destination', '43.8339576,-79.3204871')  # (29 melville crescent, brampton)Extract destination coordinates from request data
+    origin = data.get('origin', '43.7729984,-79.5084078')  #(York Keele Campus) Extract origin coordinates from request data
+    destination = data.get('destination', '43.6621761,-79.3984965')  # (Uoft) Extract destination coordinates from request data
     api_key = os.environ.get('GOOGLE_MAPS_API_KEY')
 
     if origin is None or destination is None:
