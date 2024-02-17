@@ -27,9 +27,22 @@
             var directionsRenderer = new google.maps.DirectionsRenderer();
             directionsRenderer.setMap(map);
 
+            // Retrieve coordinates passed from Flask application
+            var coordinates = {{ coordinates|tojson }};
+
+            // Add markers to the map based on the retrieved coordinates
+            for (var i = 0; i < coordinates.length; i++) {
+                var coordinate = coordinates[i];
+                var marker = new google.maps.Marker({
+                    position: { lat: coordinate.latitude, lng: coordinate.longitude },
+                    map: map,
+                    title: coordinate.name
+                });
+            }
+
             // Define origin and destination coordinates
-            var origin = new google.maps.LatLng(43.7814368, -79.4175989);
-            var destination = new google.maps.LatLng(43.7959696, -79.3496602);
+            var origin = new google.maps.LatLng(43.851174,-79.3168389); // Unionville GO
+            var destination = new google.maps.LatLng(43.8339576,-79.3204871); // 29 melville crescent
 
             // Define request parameters for directions
             var request = {
@@ -50,6 +63,6 @@
     </script>
 
     <!-- Load the Google Maps JavaScript API with your API key -->
-    <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&callback=initMap" async defer></script>
 </body>
 </html>
