@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map with Routing</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Map with Routing</h1>
+    <div id="map"></div>
+
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: { lat: 43.7814368, lng: -79.4175989 } // Default center (Toronto)
+            });
+
+            // Initialize directions service and renderer
+            var directionsService = new google.maps.DirectionsService();
+            var directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            // Define origin and destination coordinates
+            var origin = new google.maps.LatLng(43.7814368, -79.4175989);
+            var destination = new google.maps.LatLng(43.7959696, -79.3496602);
+
+            // Define request parameters for directions
+            var request = {
+                origin: origin,
+                destination: destination,
+                travelMode: 'TRANSIT' // You can change the travel mode here (DRIVING, WALKING, BICYCLING, TRANSIT)
+            };
+
+            // Retrieve directions and display them on the map
+            directionsService.route(request, function(response, status) {
+                if (status == 'OK') {
+                    directionsRenderer.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+    </script>
+
+    <!-- Load the Google Maps JavaScript API with your API key -->
+    <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap" async defer></script>
+</body>
+</html>
