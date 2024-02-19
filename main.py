@@ -11,7 +11,7 @@ app.secret_key='ksidghioher8723543'
 api_key = os.environ.get('GOOGLE_MAPS_API_KEY')
 
 @app.route('/', methods=['GET'])
-def formPage():
+def home():
     return render_template('forms.html')
 
 @app.route('/calculate_route',  methods=['GET', 'POST'])
