@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data Submission</title>
+</head>
+<body>
+    <h2>Submit Form Data to Backend</h2>
+    <form id="dataForm" name="dataForm" >
+        <label for="source_address">Source Address:</label>
+        <input type="text" id="source_address" name="source_address"><br><br>
+        <label for="destination_address">Destination Address:</label>
+        <input type="text" id="destination_address" name="destination_address"><br><br>
+        <button type="button" onclick="submitForm()">Go</button>
+    </form>
+
+    <script>
+        function submitForm(){
+
+            //To Get form data
+            var formData = {
+                source_address: document.getElementById('source_address').value,
+                destination_address: document.getElementById('destination_address').value
+            };
+
+            //To Send form data to back ennd
+            fetch('/calculate_route',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)                
+            } )
+            .then(response=> {
+                if(response.ok){
+                    return response.json();
+                }else{
+                    throw new Error('Failed to submit form data')
+                }
+            })
+            .then(data=>{
+                window.location.href='/map-route'
+            })
+            .catch(error=>{
+                console.log('Error sending data to backend', error)
+            })
+        }
+    </script>
+</body>
+</html>

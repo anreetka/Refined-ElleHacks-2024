@@ -13,7 +13,12 @@
 </head>
 <body>
     <h1>Map with Routing</h1>
+    <div>
+        <b>Source Location: </b><span id="sourceLocation"></span><br>
+        <b>Destination Location: </b><span id="destinationLocation"></span>
+    </div>
     <div id="map"></div>
+    <button type="submit">Search again</button>
 
     <script>
         function initMap() {
@@ -27,8 +32,13 @@
             var directionsRenderer = new google.maps.DirectionsRenderer();
             directionsRenderer.setMap(map);
 
-            // Retrieve coordinates passed from Flask application
-            var coordinates = {{ coordinates|tojson }};
+            //Retrieve coordinates passed from Flask application
+            var coordinates = {{ coordinates|safe }};
+            var source_loc =  {{ source_loc|safe }};
+            var dest_loc =  {{ dest_loc|safe }};
+
+            console.log(source_loc)
+            console.log(dest_loc)
 
             // Add markers to the map based on the retrieved coordinates
             for (var i = 0; i < coordinates.length; i++) {
@@ -40,9 +50,15 @@
                 });
             }
 
+            sourceLoc= document.getElementById('sourceLocation');
+            destLoc= document.getElementById('destinationLocation');
+
+            sourceLoc.innerHTML = source_loc.address;
+            destLoc.innerHTML = dest_loc.address;
+
             // Define origin and destination coordinates
-            var origin = new google.maps.LatLng(43.7729984,-79.5084078); // York Keele Campus
-            var destination = new google.maps.LatLng(43.6621761,-79.3984965); // Uoft
+            var origin = new google.maps.LatLng(source_loc.latitude, source_loc.longitude); // York Keele Campus
+            var destination = new google.maps.LatLng(dest_loc.latitude, dest_loc.longitude); // Uoft
 
             // Define request parameters for directions
             var request = {
@@ -60,9 +76,10 @@
                 }
             });
         }
+
     </script>
 
     <!-- Load the Google Maps JavaScript API with your API key -->
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap" async defer></script>
 </body>
 </html>
