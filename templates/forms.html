@@ -4,16 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Data Submission</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../static/css/form.css">
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Submit Form Data to Backend</h2>
-    <form id="dataForm" name="dataForm" >
-        <label for="source_address">Source Address:</label>
-        <input type="text" id="source_address" name="source_address"><br><br>
-        <label for="destination_address">Destination Address:</label>
-        <input type="text" id="destination_address" name="destination_address"><br><br>
-        <button type="button" onclick="submitForm()">Go</button>
-    </form>
+    <div class="first">
+        <h1>Winter Way</h1>
+        <div class="my-container">
+            <h1 class="header">Find my accessible route</h1>
+            <form id="dataForm" name="dataForm">
+                <div class="input-container">
+                    <div class="input">
+                        <label for="source_address">Source Address:</label>
+                        <input type="text" id="source_address" name="source_address"><br><br>
+                    </div>
+                    
+                    <div class="input">
+                        <label for="destination_address">Destination Address:</label>
+                        <input type="text" id="destination_address" name="destination_address"><br><br>
+                    </div>             
+                    <div class="go-Btn">
+                        <button type="button" onclick="submitForm()" class="ui blue button">Go :)</button>
+                    </div>
+                </div>
+            </form>    
+        </div>   
+    </div>
+
+    <div id="instruction">
+        <h2>See these instructions for correct way to insert address in the form</h2>
+        <ol>
+            <li>Go to google maps link <a href='https://www.google.com/maps'>here</a></li>
+            <li>Search the address you want o insert in the form as your source address (example given below)<br>
+                <img id="step1" src="../static/images/step1.png" alt="google maps image inserting address in the search bar">
+            </li>
+            <li>Once it loads the page, look for the completed address on the screen and copy it<br>
+                <img id="step2" src="../static/images/step 2.png" alt="google maps image with full address page">
+            </li>
+            <li>Now, paste that address in your source input on the form. Make sure to repeat the same steps for destintion address as well.</li>
+            <li>On hitting Go, you should see a google map with the source address, destination address and a route with accessible bus shelter to protect you from cold during snowstorms.</li>
+            <li>Zoom in the map, and click on bus to see actual bus schedule times. You can do the same for all bus times you see one the routes</li>
+        </ol>
+    </div>
+
 
     <script>
         function submitForm(){

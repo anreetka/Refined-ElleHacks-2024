@@ -10,15 +10,20 @@
             width: 100%;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <h1>Map with Routing</h1>
-    <div>
-        <b>Source Location: </b><span id="sourceLocation"></span><br>
-        <b>Destination Location: </b><span id="destinationLocation"></span>
+    <div class="new-container" style="margin-left: 2%;">
+        <h1 style="font-size: 60px; text-align: center;">Map with Routing</h1>
+        <div style="font-size: 18px; margin-bottom:1%; text-align: center;">
+            <b>Source Location: </b><span id="sourceLocation"></span>&nbsp; &#160;&nbsp; &#160;&nbsp; &#160;
+            <b>Destination Location: </b><span id="destinationLocation"></span>&nbsp; &#160;
+        </div>   
     </div>
-    <div id="map"></div>
-    <button type="submit">Search again</button>
+    <div id="map" style="height: 80vh;"></div>    
+    <div style="margin-top: 1%;">
+        <button type="submit" id="searchAgainButton" class="ui primary button" style=" margin-left:45%; font-size:18px">Search again</button>
+    </div>
 
     <script>
         function initMap() {
@@ -77,9 +82,11 @@
             });
         }
 
+        document.getElementById('searchAgainButton').addEventListener('click', function() {
+            window.location.href = '/';
+        });
     </script>
 
-    <!-- Load the Google Maps JavaScript API with your API key -->
     <script src="https://maps.googleapis.com/maps/api/js?key={{API_KEY}}&callback=initMap" async defer></script>
 </body>
 </html>
