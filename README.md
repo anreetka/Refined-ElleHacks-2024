@@ -16,7 +16,7 @@ Winter Way is a web application designed to assist users in finding safe routes 
 
 ### How It Works
 - Built backend using Flask, Python and REST API calls
-- Developed frontend with JavaScript, HTML, CSS
+- Developed frontend with JavaScript, HTML, CSS for this refined project (Original Project uses separate frontend built with additional technologies such as Next.js, React and Google Maps APIs)
 - Utilizes independently developed algorithm for computing transit routes.
 - Integration of geocoding, Google's Routes and Directions APIs.
 
